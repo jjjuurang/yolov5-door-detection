@@ -1,0 +1,191 @@
+import cv2
+import matplotlib.pyplot as plt
+imgR = cv2.cvtColor(imgB, cv2.COLOR_BGR2RGB)
+imgf = cv2.flip(imgR, 1)
+plt.subplot(1,2,1)
+plt.imshow(imgR)
+plt.subplot(1,2,2)
+plt.imshow(imgf)
+plt.show()
+
+import glob
+import cv2
+output = glob.glob('C:/Users/juzero/Desktop/before/*.jpg')
+forder_src = "C:/Users/juzero/Desktop/after/"
+print(output)
+for file_path in output:
+    image = cv2.imread(file_path)
+    flip_image = cv2.flip(image, 1)
+    original_fileName = file_path.split('\\')[-1]
+    print(original_fileName)
+    new_file_path = forder_src + 'flip_' + original_fileName
+    print(new_file_path)
+    cv2.imwrite(new_file_path, flip_image)
+
+import glob
+import cv2
+output_image = glob.glob('C:/Users/juzero/Desktop/before/*.jpg')
+output_label = glob.glob('C:/Users/juzero/Desktop/blabel/*.txt')
+label_forder_src = "C:/Users/juzero/Desktop/alabel/"
+with open(output_label[2], "r") as file:
+    content = file.read()
+    print(content)
+    x = content.split(' ')[1]
+    y = content.split(' ')[2]
+    w = content.split(' ')[-2]
+    h = content.split(' ')[-1]
+    print(x)
+    print(y)
+    print(w)
+    print(h)
+    img = cv2.imread(output_image[2])
+    height, width, color = img.shape
+    print(width)
+    print(height)
+    print(int((float(x) * width) - (float(w) * width / 2)))
+    print(int((float(y) * height) - (float(h) * height / 2)))
+    print(int((float(x) * width) + (float(w) * width / 2)))
+    print(int((float(y) * height) + (float(h) * height / 2)))
+    img_box = cv2.rectangle(img, (int((float(x) * width) - (float(w) * width / 2)), int((float(y) * height) - (float(h) * height / 2))),
+                            (int((float(x) * width) + (float(w) * width / 2)), int((float(y) * height) + (float(h) * height / 2))), (255, 0, 0), 3)
+    cv2.imshow("door", img_box)
+    cv2.waitKey(0)
+
+import glob
+import cv2
+output_image = glob.glob('C:/Users/juzero/Desktop/after/*.jpg')
+output_label = glob.glob('C:/Users/juzero/Desktop/blabel/*.txt')
+label_forder_src = "C:/Users/juzero/Desktop/alabel/"
+with open(output_label[2], "r") as file:
+    content = file.read()
+    x = content.split(' ')[1]
+    y = content.split(' ')[2]
+    w = content.split(' ')[-2]
+    h = content.split(' ')[-1]
+    img = cv2.imread(output_image[2])
+    height, width, color = img.shape
+    img_box = cv2.rectangle(img, (int(((1-float(x)) * width) - (float(w) * width / 2)), int((float(y) * height) - (float(h) * height / 2))),
+                            (int(((1-float(x)) * width) + (float(w) * width / 2)), int((float(y) * height) + (float(h) * height / 2))), (255, 0, 0), 3)
+    cv2.imshow("door", img_box)
+    cv2.waitKey(0)
+
+import cv2
+output_image = glob.glob('C:/Users/juzero/Desktop/before/*.jpg')
+output_label = glob.glob('C:/Users/juzero/Desktop/blabel/*.txt')
+image_forder_src = "C:/Users/juzero/Desktop/after/"
+label_forder_src = "C:/Users/juzero/Desktop/alabel/"
+for image_file_path in output_image:
+    image = cv2.imread(image_file_path)
+    flip_image = cv2.flip(image, 1)
+    image_original_fileName = image_file_path.split('\\')[-1]
+    image_new_file_path = image_forder_src + 'flip_' + image_original_fileName
+    cv2.imwrite(image_new_file_path, flip_image)
+
+for label_file_path in output_label:
+    image = cv2.imread(label_file_path)
+    with open(label_file_path, "r") as bfile:
+        content = bfile.read()
+        x = content.split(' ')[1]
+        y = content.split(' ')[2]
+        w = content.split(' ')[-2]
+        h = content.split(' ')[-1]
+        flip_x = 1 - float(x)
+        label_original_fileName = label_file_path.split('\\')[-1]
+        label_new_file_path = label_forder_src + 'flip_' + label_original_fileName
+        with open(label_new_file_path, "w") as afile:
+            afile.write("0" + " " + str(flip_x) + " " + y + " " + w + " " + h)
+
+import glob
+import cv2
+output_image = glob.glob('C:/Users/juzero/Desktop/detection/images/*.jpg')
+output_label = glob.glob('C:/Users/juzero/Desktop/detection/labels/*.txt')
+image_forder_src = "C:/Users/juzero/Desktop/fimage/"
+label_forder_src = "C:/Users/juzero/Desktop/flabel/"
+for image_file_path in output_image:
+    image = cv2.imread(image_file_path)
+    flip_image = cv2.flip(image, 1)
+    image_original_fileName = image_file_path.split('\\')[-1]
+    image_new_file_path = image_forder_src + 'flip_' + image_original_fileName
+    cv2.imwrite(image_new_file_path, flip_image)
+
+for label_file_path in output_label:
+    image = cv2.imread(label_file_path)
+    with open(label_file_path, "r") as bfile:
+        content = bfile.read()
+        x = content.split(' ')[1]
+        y = content.split(' ')[2]
+        w = content.split(' ')[-2]
+        h = content.split(' ')[-1]
+        flip_x = 1 - float(x)
+        label_original_fileName = label_file_path.split('\\')[-1]
+        label_new_file_path = label_forder_src + 'flip_' + label_original_fileName
+        with open(label_new_file_path, "w") as afile:
+            afile.write("0" + " " + str(flip_x) + " " + y + " " + w + " " + h)
+
+import glob
+import cv2
+output_label = glob.glob('C:/Users/juzero/Desktop/detection/labels/*.txt')
+label_forder_src = "C:/Users/juzero/Desktop/clabel/"
+for label_file_path in output_label:
+    image = cv2.imread(label_file_path)
+    with open(label_file_path, "r") as bfile:
+        content = bfile.read()
+        x = content.split(' ')[1]
+        y = content.split(' ')[2]
+        w = content.split(' ')[-2]
+        h = content.split(' ')[-1]
+        change_x = float(x) - (float(w)/2)
+        change_y = float(y) - (float(h)/2)
+        label_original_fileName = label_file_path.split('\\')[-1]
+        label_new_file_path = label_forder_src + 'change_' + label_original_fileName
+        with open(label_new_file_path, "w") as afile:
+            afile.write("0" + " " + str(change_x) + " " + str(change_y) + " " + w + " " + h)
+
+import glob
+import cv2
+output_label = glob.glob('C:/Users/juzero/Desktop/detection/labels/*.txt')
+label_forder_src = "C:/Users/juzero/Desktop/2detection/labels/"
+for label_file_path in output_label:
+    image = cv2.imread(label_file_path)
+    with open(label_file_path, "r") as bfile:
+        content = bfile.read()
+        x = content.split(' ')[1]
+        y = content.split(' ')[2]
+        w = content.split(' ')[-2]
+        h = content.split(' ')[-1]
+        change_x = float(x) - (float(w)/2)
+        change_y = float(y) - (float(h)/2)
+        label_original_fileName = label_file_path.split('\\')[-1]
+        label_new_file_path = label_forder_src + label_original_fileName
+        with open(label_new_file_path, "w") as afile:
+            afile.write("0" + " " + str(change_x) + " " + str(change_y) + " " + w + " " + h)
+
+import glob
+import cv2
+output_image = glob.glob('C:/Users/juzero/Desktop/2detection/images/*.jpg')
+image_forder_src = "C:/Users/juzero/Desktop/3detection/images/"
+for image_file_path in output_image:
+    image = cv2.imread(image_file_path)
+    width, height = image.shape[:2]
+    resize_image = cv2.resize(image, (416, 416), interpolation=cv2.INTER_CUBIC)
+    image_original_fileName = image_file_path.split('\\')[-1]
+    image_new_file_path = image_forder_src + image_original_fileName
+    cv2.imwrite(image_new_file_path, resize_image)
+
+import glob
+output = glob.glob('C:/Users/juzero/Desktop/z/*.txt')
+label_forder_src = "C:/Users/juzero/Desktop/fz/"
+for label_file_path in output:
+     with open(label_file_path, "r") as bfile:
+         label_original_fileName = label_file_path.split('\\')[-1]
+         label_new_file_path = label_forder_src + 'flip_' + label_original_fileName
+         afile = open(label_new_file_path, "w")
+         while True:
+            line = bfile.readline()
+            if not line: break
+            x = line.split(' ')[1]
+            y = line.split(' ')[2]
+            w = line.split(' ')[-2]
+            h = line.split(' ')[-1]
+            flip_x = 1 - float(x)
+            afile.write("0" + " " + str(flip_x) + " " + y + " " + w + " " + h)
