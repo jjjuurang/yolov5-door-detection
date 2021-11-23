@@ -189,3 +189,16 @@ for label_file_path in output:
             h = line.split(' ')[-1]
             flip_x = 1 - float(x)
             afile.write("0" + " " + str(flip_x) + " " + y + " " + w + " " + h)
+            
+import glob
+output = glob.glob('C:/Users/juzero/Desktop/z/*.txt')
+nz = 0
+for label_file_path in output:
+     with open(label_file_path, "r") as file:
+         for line in file:
+             print(label_file_path)
+             print(line)
+             c = line.split(' ')[0]
+             if c != "0":
+                 nz += 1
+print(nz)            
